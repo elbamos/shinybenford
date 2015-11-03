@@ -1,0 +1,50 @@
+---
+title: "Shiny Benford"
+output: html_document
+mathjax: local
+self_contained: false
+---
+
+This was created as a simple demonstration project, to show a group of forensic accountants the benefits to using statistical software more advanced than the Excel macros they had been working with.
+
+Benford's Law posits that in any set of real-world numbers, the most significant digits are distributed according to $P(d) = log_{10}(1 + 1/d)$.
+
+```{r warning=F,error=F,method=F,echo=F}
+library(magrittr)
+library(ggplot2)
+library(RColorBrewer)
+library(wesanderson)
+library(scales)
+library(grid)
+colors_discrete <- function(x) wes_palette("Darjeeling", n = x)
+colors_divergent_discrete <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))
+colors_continuous <-  function(x) wes_palette(name= "Zissou",n = x, type= "continuous")
+nacol <- colors_discrete(4)[4]
+
+theme_set(
+	theme_bw() %+replace%
+		#	theme_fivethirtyeight() +
+		theme(#legend.position="bottom",
+			legend.key.size=unit(4,"mm"),
+			legend.title=element_text(size=rel(0.8), face = "bold"),
+			legend.margin=unit(0,"cm"),
+			legend.key.size=unit(0.5,"lines"),
+			legend.text=element_text(size = unit(10, "points")),
+			axis.title.y = element_text(angle=90),
+			axis.text = element_text(size=rel(0.7)),
+			plot.margin = unit(c(0, 0.5, 1, 0), "lines"),
+			axis.title=element_text(size=rel(0.8),face="bold")
+		)
+)
+
+data.frame(digit = factor(1:9), 
+										probability = log10(1 + 1/1:9)) %>%
+	ggplot( aes(x = digit, y = probability)) +
+	geom_bar(stat = 'identity')
+```
+
+Benford's Law is often used in forensic accounting. A common use, for example, would be to chart the distribution for a general ledger or petty cash account. In many cases, investigators have found bulges deviating from the Benford Distribution just under some officer's spending authority limit. 
+
+The Shiny app may be viewed [here](https://amose.shinyapps.io/shinybenford).
+
+For more information about the use of the Benford Distribution in fraud detection, and the rationale behind the transformations available in the app, see Nigrini, M. J. (2011). Forensic Analyticis: Methods and Techniques for Forensic Accounting Investigations.
