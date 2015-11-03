@@ -2,7 +2,7 @@
 
 This was created as a simple demonstration project, to show a group of forensic accountants the benefits to using statistical software more advanced than the Excel macros they had been working with.
 
-Benford's Law posits that in any set of real-world numbers, the most significant digits are distributed according to $P(d) = log_{10}(1 + 1/d)$.
+Benford's Law posits that in any set of real-world numbers, the most significant digits are distributed according to ![equation](http://latex.codecogs.com/gif.latex?P%28d%29=log_%7B10%7D%281+1%2Fd%29).
 
 ![](index_files/figure-html/unnamed-chunk-1-1.png) 
 
